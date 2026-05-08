@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Colors International Nursery | حضانة كولورز الدولية</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;900&family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root {
+    --red:    #E63946;
+    --blue:   #2176AE;
+    --yellow: #F4A100;
+    --green:  #2DB87C;
+    --soft-red:    #FFF0F1;
+    --soft-blue:   #EEF5FF;
+    --soft-yellow: #FFFBEE;
+    --soft-green:  #EDFAF4;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: 'Cairo', 'Tajawal', sans-serif;
+    background: #fff;
+    color: #1a1a2e;
+    overflow-x: hidden;
+  }
+ 
+  /* ── Bubbles decoration ── */
+  .bubble {
+    position: absolute;
+    border-radius: 50%;
+    opacity: .13;
+    pointer-events: none;
+  }
+ 
+  /* ── Nav ── */
+  #navbar {
+    position: fixed; top: 0; right: 0; left: 0; z-index: 100;
+    background: rgba(255,255,255,.92);
+    backdrop-filter: blur(14px);
+    border-bottom: 2px solid #f0f0f0;
+    transition: box-shadow .3s;
+  }
+  #navbar.scrolled { box-shadow: 0 4px 30px rgba(0,0,0,.08); }
+  .nav-inner {
+    max-width: 1200px; margin: auto;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 24px;
+  }
+  .logo-badge {
+    display: flex; align-items: center; gap: 10px;
+  }
+  .logo-circles {
+    display: flex; gap: 4px;
+  }
+  .logo-circles span {
+    width: 14px; height: 14px; border-radius: 50%; display: block;
+  }
+  .logo-text { font-size: 1.15rem; font-weight: 900; line-height: 1.1; color:#1a1a2e; }
+  .logo-text small { display:block; font-weight:400; font-size:.7rem; color:#888; letter-spacing:.03em; }
+ 
+  .nav-links { display:flex; gap:28px; list-style:none; margin:0; padding:0; }
+  .nav-links a {
+    font-size: .92rem; font-weight: 600; color: #444;
+    text-decoration: none; padding-bottom: 3px;
+    border-bottom: 2px solid transparent;
+    transition: color .2s, border-color .2s;
+  }
+  .nav-links a:hover { color: var(--blue); border-color: var(--blue); }
+ 
+  .btn-nav {
+    background: var(--red); color: #fff;
+    padding: 9px 22px; border-radius: 30px;
+    font-weight: 700; font-size: .88rem;
+    border: none; cursor: pointer;
+    transition: transform .2s, box-shadow .2s;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .btn-nav:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(230,57,70,.35); }
+ 
+  .hamburger { display:none; flex-direction:column; gap:5px; cursor:pointer; background:none; border:none; padding:4px; }
+  .hamburger span { display:block; width:25px; height:2px; background:#333; border-radius:2px; transition:.3s; }
+ 
+  /* ── Hero ── */
+  #hero {
+    min-height: 100vh;
+    display: flex; align-items: center;
+    background: linear-gradient(135deg, #fff9f9 0%, #f0f8ff 50%, #f0fff8 100%);
+    position: relative; overflow: hidden;
+    padding-top: 90px;
+  }
+  .hero-inner {
+    max-width: 1200px; margin: auto; padding: 60px 24px;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
+  }
+  .hero-tag {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--soft-yellow); color: #b27800;
+    border-radius: 30px; padding: 6px 16px; font-size: .82rem; font-weight: 700;
+    margin-bottom: 18px;
+  }
+  .hero-tag::before { content: '✦'; }
+  .hero-title {
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    font-weight: 900; line-height: 1.25;
+    color: #1a1a2e; margin-bottom: 20px;
+  }
+  .hero-title .accent-red   { color: var(--red); }
+  .hero-title .accent-blue  { color: var(--blue); }
+  .hero-title .accent-green { color: var(--green); }
+  .hero-sub {
+    font-size: 1.08rem; color: #555; line-height: 1.8;
+    margin-bottom: 36px; font-weight: 400;
+  }
+  .hero-btns { display: flex; gap: 14px; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--red); color: #fff;
+    padding: 14px 32px; border-radius: 40px;
+    font-weight: 700; font-size: 1rem; border: none; cursor: pointer;
+    transition: all .25s; text-decoration: none; display: inline-block;
+    box-shadow: 0 6px 20px rgba(230,57,70,.3);
+  }
+  .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 12px 30px rgba(230,57,70,.4); }
+  .btn-secondary {
+    background: #fff; color: var(--blue);
+    padding: 14px 32px; border-radius: 40px;
+    font-weight: 700; font-size: 1rem;
+    border: 2px solid var(--blue); cursor: pointer;
+    transition: all .25s; text-decoration: none; display: inline-block;
+  }
+  .btn-secondary:hover { background: var(--blue); color:#fff; transform:translateY(-3px); }
+ 
+  .hero-stats {
+    display: flex; gap: 28px; margin-top: 36px;
+  }
+  .stat-item { text-align: center; }
+  .stat-num { font-size: 1.8rem; font-weight: 900; }
+  .stat-label { font-size: .78rem; color: #777; font-weight: 500; }
+ 
+  /* Hero visual */
+  .hero-visual {
+    position: relative; display: flex; justify-content: center;
+  }
+  .hero-img-wrapper {
+    position: relative; width: 420px; max-width: 100%;
+  }
+  .hero-img-bg {
+    position: absolute; inset: 0;
+    border-radius: 40% 60% 55% 45% / 40% 45% 55% 60%;
+    background: linear-gradient(135deg, var(--yellow) 0%, var(--red) 100%);
+    opacity: .12;
+    animation: morphBlob 8s ease-in-out infinite;
+  }
+  @keyframes morphBlob {
+    0%,100% { border-radius: 40% 60% 55% 45% / 40% 45% 55% 60%; }
+    50%      { border-radius: 60% 40% 45% 55% / 55% 60% 40% 45%; }
+  }
+  .hero-emoji-grid {
+    position: relative; z-index:1;
+    display: grid; grid-template-columns: repeat(3,1fr); gap:16px;
+    padding: 30px;
+  }
+  .emoji-card {
+    background: #fff;
+    border-radius: 20px;
+    padding: 22px 14px;
+    text-align: center;
+    box-shadow: 0 8px 30px rgba(0,0,0,.08);
+    transition: transform .3s;
+    animation: floatCard 4s ease-in-out infinite;
+  }
+  .emoji-card:nth-child(2) { animation-delay: .5s; }
+  .emoji-card:nth-child(3) { animation-delay: 1s; }
+  .emoji-card:nth-child(4) { animation-delay: 1.5s; }
+  .emoji-card:nth-child(5) { animation-delay: .8s; }
+  .emoji-card:nth-child(6) { animation-delay: .3s; }
+  @keyframes floatCard {
+    0%,100% { transform: translateY(0); }
+    50%      { transform: translateY(-8px); }
+  }
+  .emoji-card .emoji { font-size: 2.2rem; display:block; margin-bottom:6px; }
+  .emoji-card .elabel { font-size: .72rem; font-weight: 700; color:#444; }
+ 
+  /* Floating badges */
+  .float-badge {
+    position: absolute; background:#fff;
+    border-radius: 16px; padding: 10px 16px;
+    box-shadow: 0 8px 30px rgba(0,0,0,.12);
+    font-size: .8rem; font-weight: 700;
+    display: flex; align-items: center; gap: 8px;
+    z-index: 5;
+    animation: floatBadge 5s ease-in-out infinite;
+  }
+  @keyframes floatBadge {
+    0%,100% { transform: translateY(0) rotate(-2deg); }
+    50%      { transform: translateY(-10px) rotate(2deg); }
+  }
+  .badge-dot { width:10px; height:10px; border-radius:50%; flex-shrink:0; }
+ 
+  /* ── Sections common ── */
+  section { padding: 90px 24px; }
+  .section-tag {
+    display: inline-block;
+    padding: 5px 18px; border-radius: 30px;
+    font-size: .8rem; font-weight: 700; margin-bottom: 12px;
+  }
+  .section-title {
+    font-size: clamp(1.6rem, 3vw, 2.4rem);
+    font-weight: 900; line-height: 1.3; margin-bottom: 16px;
+  }
+  .section-sub {
+    font-size: 1rem; color: #666; line-height: 1.8; max-width: 560px;
+  }
+  .container { max-width: 1200px; margin: auto; }
+ 
+  /* ── About ── */
+  #about { background: #fff; }
+  .about-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 70px; align-items: center;
+  }
+  .about-visual {
+    position: relative;
+  }
+  .about-card-main {
+    background: linear-gradient(135deg, var(--blue) 0%, #1558a0 100%);
+    border-radius: 28px; padding: 40px; color: #fff;
+    position: relative; overflow: hidden;
+  }
+  .about-card-main::before {
+    content: ''; position:absolute; top:-40px; left:-40px;
+    width:160px; height:160px; border-radius:50%;
+    background: rgba(255,255,255,.08);
+  }
+  .about-card-main::after {
+    content: ''; position:absolute; bottom:-30px; right:-30px;
+    width:120px; height:120px; border-radius:50%;
+    background: rgba(255,255,255,.06);
+  }
+  .about-card-main h3 { font-size:1.4rem; font-weight:800; margin-bottom:14px; }
+  .about-card-main p { font-size:.95rem; line-height:1.8; opacity:.9; }
+  .about-float-card {
+    position:absolute; bottom:-28px; left:-28px;
+    background:#fff; border-radius:20px;
+    padding: 18px 22px;
+    box-shadow: 0 12px 40px rgba(0,0,0,.12);
+    display:flex; align-items:center; gap:12px;
+  }
+  .about-float-num { font-size:2rem; font-weight:900; }
+  .about-float-label { font-size:.8rem; color:#666; font-weight:600; line-height:1.3; }
+ 
+  .about-list { list-style:none; padding:0; margin: 24px 0; }
+  .about-list li {
+    display:flex; align-items:flex-start; gap:12px;
+    padding: 12px 0; border-bottom: 1px solid #f0f0f0;
+    font-size: .95rem; line-height: 1.7;
+  }
+  .about-list li:last-child { border:none; }
+  .check-icon {
+    width:24px; height:24px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    font-size:.75rem; font-weight:900; flex-shrink:0; margin-top:2px;
+  }
+ 
+  /* ── Features ── */
+  #features { background: #f8faff; }
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 24px; margin-top: 48px;
+  }
+  .feature-card {
+    background: #fff;
+    border-radius: 24px; padding: 32px 26px;
+    transition: transform .3s, box-shadow .3s;
+    position: relative; overflow: hidden;
+    border: 1.5px solid transparent;
+  }
+  .feature-card::before {
+    content: ''; position:absolute; top:0; right:0; left:0; height:4px;
+    border-radius: 24px 24px 0 0;
+  }
+  .feature-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 50px rgba(0,0,0,.1);
+  }
+  .feature-icon {
+    width:64px; height:64px; border-radius:18px;
+    display:flex; align-items:center; justify-content:center;
+    font-size:1.8rem; margin-bottom:20px;
+  }
+  .feature-card h3 { font-size:1.1rem; font-weight:800; margin-bottom:10px; }
+  .feature-card p { font-size:.88rem; color:#666; line-height:1.75; }
+ 
+  /* ── Programs ── */
+  #programs { background: #fff; }
+  .programs-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 28px; margin-top: 48px;
+  }
+  .program-card {
+    border-radius: 28px; padding: 36px 28px; position:relative; overflow:hidden;
+    transition: transform .3s;
+  }
+  .program-card:hover { transform: translateY(-6px); }
+  .program-card::after {
+    content:''; position:absolute;
+    width:120px; height:120px; border-radius:50%;
+    bottom:-30px; left:-30px; background:rgba(255,255,255,.15);
+  }
+  .program-age {
+    font-size:3rem; font-weight:900; opacity:.25; position:absolute;
+    top:16px; left:24px; line-height:1;
+  }
+  .program-badge {
+    display:inline-block; background:rgba(255,255,255,.25);
+    border-radius:30px; padding:5px 14px;
+    font-size:.78rem; font-weight:700; color:#fff; margin-bottom:14px;
+  }
+  .program-card h3 { font-size:1.25rem; font-weight:900; color:#fff; margin-bottom:10px; }
+  .program-card p { font-size:.88rem; color:rgba(255,255,255,.85); line-height:1.7; margin-bottom:20px; }
+  .program-features { list-style:none; padding:0; }
+  .program-features li {
+    font-size:.82rem; color:rgba(255,255,255,.9);
+    padding:5px 0; display:flex; align-items:center; gap:8px;
+  }
+  .program-features li::before { content:'✓'; font-weight:900; font-size:.9rem; }
+ 
+  /* ── Contact ── */
+  #contact { background: linear-gradient(160deg, #f8faff 0%, #fff9f0 100%); }
+  .contact-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 60px; margin-top: 48px;
+  }
+  .contact-info-item {
+    display:flex; align-items:flex-start; gap:16px; margin-bottom:28px;
+  }
+  .contact-icon-wrap {
+    width:50px; height:50px; border-radius:14px;
+    display:flex; align-items:center; justify-content:center;
+    font-size:1.3rem; flex-shrink:0;
+  }
+  .contact-info-item h4 { font-size:.9rem; font-weight:700; margin-bottom:4px; color:#333; }
+  .contact-info-item p { font-size:.88rem; color:#666; line-height:1.6; }
+ 
+  .contact-form { background:#fff; border-radius:28px; padding:36px; box-shadow:0 12px 50px rgba(0,0,0,.07); }
+  .form-group { margin-bottom: 20px; }
+  .form-group label { display:block; font-size:.85rem; font-weight:700; color:#333; margin-bottom:7px; }
+  .form-group input,
+  .form-group textarea,
+  .form-group select {
+    width:100%; border:2px solid #eee; border-radius:12px;
+    padding:13px 16px; font-family:inherit; font-size:.9rem; color:#333;
+    transition: border-color .2s, box-shadow .2s; outline:none;
+    background:#fafafa;
+    direction: rtl;
+  }
+  .form-group input:focus,
+  .form-group textarea:focus,
+  .form-group select:focus {
+    border-color: var(--blue); box-shadow: 0 0 0 3px rgba(33,118,174,.12);
+    background:#fff;
+  }
+  .form-group textarea { resize:vertical; min-height:120px; }
+  .btn-submit {
+    width:100%; background:var(--red); color:#fff;
+    padding:15px; border-radius:14px; font-family:inherit;
+    font-size:1rem; font-weight:700; border:none; cursor:pointer;
+    transition: all .25s;
+    box-shadow: 0 6px 20px rgba(230,57,70,.3);
+  }
+  .btn-submit:hover { transform:translateY(-2px); box-shadow:0 12px 30px rgba(230,57,70,.4); }
+ 
+  .map-placeholder {
+    border-radius:20px; overflow:hidden;
+    height:200px; background: linear-gradient(135deg, #e8f4fd 0%, #d4edda 100%);
+    display:flex; align-items:center; justify-content:center;
+    font-size:3rem; margin-top:24px;
+    border: 2px dashed #cde;
+    position:relative;
+  }
+  .map-placeholder .map-label {
+    position:absolute; bottom:14px;
+    font-size:.82rem; font-weight:700; color:#555;
+    background:#fff; padding:6px 14px; border-radius:30px;
+  }
+ 
+  /* ── Footer ── */
+  footer {
+    background: #1a1a2e; color: #aaa;
+    padding: 48px 24px 28px; text-align:center;
+  }
+  .footer-logo { margin-bottom:16px; }
+  .footer-links { display:flex; gap:24px; justify-content:center; flex-wrap:wrap; margin-bottom:24px; }
+  .footer-links a { color:#aaa; text-decoration:none; font-size:.85rem; transition:color .2s; }
+  .footer-links a:hover { color:#fff; }
+  .footer-bottom { border-top:1px solid #333; padding-top:22px; font-size:.8rem; }
+  .footer-colors { display:flex; gap:8px; justify-content:center; margin-bottom:14px; }
+  .footer-colors span { width:12px; height:12px; border-radius:50%; }
+ 
+  /* ── Scroll animations ── */
+  .reveal {
+    opacity:0; transform:translateY(30px);
+    transition: opacity .7s, transform .7s;
+  }
+  .reveal.visible { opacity:1; transform:translateY(0); }
+ 
+  /* ── Mobile ── */
+  @media (max-width: 768px) {
+    .nav-links, .btn-nav { display:none; }
+    .hamburger { display:flex; }
+    .mobile-menu {
+      display:none; position:fixed; top:70px; inset-x:0; bottom:0;
+      background:#fff; z-index:99; padding:30px 24px;
+      flex-direction:column; gap:0;
+    }
+    .mobile-menu.open { display:flex; }
+    .mobile-menu a {
+      display:block; padding:16px 0; font-size:1.05rem; font-weight:700;
+      color:#333; text-decoration:none; border-bottom:1px solid #f0f0f0;
+    }
+    .mobile-cta { margin-top:24px; }
+    .hero-inner { grid-template-columns:1fr; gap:40px; text-align:center; }
+    .hero-btns { justify-content:center; }
+    .hero-stats { justify-content:center; }
+    .hero-visual { display:none; }
+    .about-grid { grid-template-columns:1fr; gap:40px; }
+    .about-float-card { bottom:-18px; left:0; }
+    .contact-grid { grid-template-columns:1fr; gap:40px; }
+    section { padding:60px 16px; }
+  }
+  @media (max-width:480px) {
+    .hero-stats { flex-wrap:wrap; gap:16px; }
+  }
+</style>
+</head>
+<body>
+ 
+<!-- ─── NAVBAR ─── -->
+<nav id="navbar">
+  <div class="nav-inner">
+    <div class="logo-badge">
+      <div class="logo-circles">
+        <span style="background:var(--red)"></span>
+        <span style="background:var(--blue)"></span>
+        <span style="background:var(--yellow)"></span>
+        <span style="background:var(--green)"></span>
+      </div>
+      <div class="logo-text">
+        Colors
+        <small>International Nursery</small>
+      </div>
+    </div>
+    <ul class="nav-links">
+      <li><a href="#hero">الرئيسية</a></li>
+      <li><a href="#about">عن الحضانة</a></li>
+      <li><a href="#programs">برامجنا</a></li>
+      <li><a href="#contact">تواصل معنا</a></li>
+    </ul>
+    <a href="#contact" class="btn-nav">سجّل الآن</a>
+    <button class="hamburger" onclick="toggleMenu()" aria-label="القائمة">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+ 
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#hero" onclick="toggleMenu()">الرئيسية</a>
+  <a href="#about" onclick="toggleMenu()">عن الحضانة</a>
+  <a href="#features" onclick="toggleMenu()">مميزاتنا</a>
+  <a href="#programs" onclick="toggleMenu()">برامجنا</a>
+  <a href="#contact" onclick="toggleMenu()">تواصل معنا</a>
+  <a href="#contact" onclick="toggleMenu()" class="btn-primary mobile-cta" style="text-align:center; margin-top:24px; border-radius:14px;">سجّل طفلك الآن 🎉</a>
+</div>
+ 
+<!-- ─── HERO ─── -->
+<section id="hero">
+  <!-- decorative bubbles -->
+  <div class="bubble" style="width:300px;height:300px;background:var(--yellow);top:-80px;right:-80px;"></div>
+  <div class="bubble" style="width:200px;height:200px;background:var(--blue);bottom:60px;left:-60px;"></div>
+  <div class="bubble" style="width:120px;height:120px;background:var(--green);top:40%;right:45%;"></div>
+ 
+  <div class="hero-inner">
+    <div>
+      <div class="hero-tag">حضانة دولية معتمدة ⭐</div>
+      <h1 class="hero-title">
+        أطفالكم..
+        <span class="accent-red">أحلامهم</span>
+        <br>هي <span class="accent-blue">أولويتنا</span>
+        <br><span class="accent-green">أولاً وأخيراً</span>
+      </h1>
+      <p class="hero-sub">
+        في Colors International Nursery نؤمن أن كل طفل هو عالَم مليء بالإمكانات.
+        نرعى نموّه بأسلوب تعليمي دولي متكامل، في بيئة آمنة وممتعة تشعله بحب التعلم.
+      </p>
+      <div class="hero-btns">
+        <a href="#contact" class="btn-primary">🎒 سجّل طفلك الآن</a>
+        <a href="#programs" class="btn-secondary">تعرّف على برامجنا</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat-item">
+          <div class="stat-num" style="color:var(--red)">+500</div>
+          <div class="stat-label">طفل سعيد</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num" style="color:var(--blue)">12</div>
+          <div class="stat-label">سنة خبرة</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num" style="color:var(--green)">98%</div>
+          <div class="stat-label">رضا الأهل</div>
+        </div>
+      </div>
+    </div>
+ 
+    <div class="hero-visual">
+      <!-- floating badges -->
+      <div class="float-badge" style="top:10px; right:-10px; animation-delay:.3s;">
+        <div class="badge-dot" style="background:var(--green)"></div>
+        تعلّم باللعب
+      </div>
+      <div class="float-badge" style="bottom:20px; left:-10px; animation-delay:1.2s; flex-direction:row-reverse;">
+        <div class="badge-dot" style="background:var(--yellow)"></div>
+        كاميرات مراقبة 24/7
+      </div>
+ 
+      <div class="hero-img-wrapper">
+        <div class="hero-img-bg"></div>
+        <div class="hero-emoji-grid">
+          <div class="emoji-card" style="border-top:3px solid var(--red);">
+            <span class="emoji">🎨</span>
+            <span class="elabel">فنون إبداعية</span>
+          </div>
+          <div class="emoji-card" style="border-top:3px solid var(--blue);">
+            <span class="emoji">📚</span>
+            <span class="elabel">تعليم مبكر</span>
+          </div>
+          <div class="emoji-card" style="border-top:3px solid var(--yellow);">
+            <span class="emoji">🎵</span>
+            <span class="elabel">موسيقى</span>
+          </div>
+          <div class="emoji-card" style="border-top:3px solid var(--green);">
+            <span class="emoji">⚽</span>
+            <span class="elabel">رياضة</span>
+          </div>
+          <div class="emoji-card" style="border-top:3px solid var(--red);">
+            <span class="emoji">🌍</span>
+            <span class="elabel">لغات</span>
+          </div>
+          <div class="emoji-card" style="border-top:3px solid var(--blue);">
+            <span class="emoji">🍎</span>
+            <span class="elabel">تغذية صحية</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+ 
+  <!-- scroll hint -->
+  <div style="text-align:center; padding-bottom:30px; animation: floatCard 2s ease-in-out infinite;">
+    <span style="font-size:1.5rem;">↓</span>
+  </div>
+</section>
+ 
+<!-- ─── ABOUT ─── -->
+<section id="about">
+  <div class="container">
+    <div class="about-grid">
+ 
+      <div class="about-visual reveal">
+        <div class="about-card-main">
+          <h3>رؤيتنا التعليمية</h3>
+          <p>
+            نعتمد منهج Montessori الدولي المطوَّر، الذي يُنمّي استقلالية الطفل
+            وقدرته على الاكتشاف، ويُعزّز ثقته بنفسه من خلال بيئة تعليمية مُحفِّزة
+            وآمنة تراعي فروقه الفردية.
+          </p>
+          <br>
+          <p>
+            فريقنا التعليمي من أمهر المعلمين الحاصلين على شهادات دولية،
+            يعملون بشغف حقيقي لصُنع جيل واثق، مبدع، ومحب للتعلم.
+          </p>
+        </div>
+        <div class="about-float-card">
+          <div class="about-float-num" style="color:var(--yellow)">🏆</div>
+          <div>
+            <div class="about-float-num" style="color:var(--blue); font-size:1.4rem;">أفضل حضانة</div>
+            <div class="about-float-label">جائزة التميز التعليمي 2023</div>
+          </div>
+        </div>
+      </div>
+ 
+      <div class="reveal" style="transition-delay:.15s">
+        <div class="section-tag" style="background:var(--soft-blue); color:var(--blue);">من نحن</div>
+        <h2 class="section-title">نبني شخصية طفلك.. <br>لا نحفظه فقط</h2>
+        <p class="section-sub">
+          منذ عام 2012، وحضانة كولورز الدولية تُقدّم تجربة تعليمية فريدة تجمع بين
+          الانضباط الأكاديمي والمتعة الحقيقية. نؤمن أن سنوات الطفولة المبكرة هي
+          الأهم في بناء الإنسان.
+        </p>
+        <ul class="about-list">
+          <li>
+            <div class="check-icon" style="background:var(--soft-green); color:var(--green);">✓</div>
+            <span><strong>معلمون دوليون:</strong> فريق متعدد الجنسيات يتحدث العربية والإنجليزية والفرنسية</span>
+          </li>
+          <li>
+            <div class="check-icon" style="background:var(--soft-blue); color:var(--blue);">✓</div>
+            <span><strong>منهج معتمد دولياً:</strong> مرتبط بمعايير Cambridge وIB للتعليم المبكر</span>
+          </li>
+          <li>
+            <div class="check-icon" style="background:var(--soft-yellow); color:#b27800;">✓</div>
+            <span><strong>بيئة آمنة 100%:</strong> كاميرات مراقبة، مداخل مؤمّنة، طواقم إسعاف أولي</span>
+          </li>
+          <li>
+            <div class="check-icon" style="background:var(--soft-red); color:var(--red);">✓</div>
+            <span><strong>تطبيق للأهل:</strong> متابعة يومية لنشاط طفلك، صور وتقارير فورية</span>
+          </li>
+        </ul>
+        <a href="#contact" class="btn-primary" style="margin-top:10px; display:inline-block;">📞 تواصل مع المدير</a>
+      </div>
+ 
+    </div>
+  </div>
+</section>
+ 
+<!-- ─── FEATURES ─── -->
+<section id="features">
+  <div class="container">
+    <div style="text-align:center;" class="reveal">
+      <div class="section-tag" style="background:var(--soft-yellow); color:#b27800;">لماذا كولورز؟</div>
+      <h2 class="section-title">مميزات تجعلنا الخيار الأول للأهالي</h2>
+    </div>
+    <div class="features-grid">
+ 
+      <div class="feature-card reveal" style="border-color:#fde8ea; transition-delay:.05s">
+        <div class="feature-card" style="position:absolute;inset:0;border-radius:24px;border-top:4px solid var(--red);"></div>
+        <div class="feature-icon" style="background:var(--soft-red);">📷</div>
+        <h3>كاميرات مراقبة مباشرة</h3>
+        <p>تابع طفلك في أي وقت عبر تطبيق الأهل الخاص بنا، مع تسجيل 24 ساعة ونظام دخول بالبصمة.</p>
+      </div>
+ 
+      <div class="feature-card reveal" style="border-color:#e0eeff; transition-delay:.1s">
+        <div class="feature-card" style="position:absolute;inset:0;border-radius:24px;border-top:4px solid var(--blue);"></div>
+        <div class="feature-icon" style="background:var(--soft-blue);">🌍</div>
+        <h3>تعليم متعدد اللغات</h3>
+        <p>برامج اللغة العربية والإنجليزية والفرنسية بأسلوب تفاعلي ممتع يُرسّخ الألفة مع اللغات منذ الصغر.</p>
+      </div>
+ 
+      <div class="feature-card reveal" style="border-color:#fff3cc; transition-delay:.15s">
+        <div class="feature-card" style="position:absolute;inset:0;border-radius:24px;border-top:4px solid var(--yellow);"></div>
+        <div class="feature-icon" style="background:var(--soft-yellow);">🎭</div>
+        <h3>أنشطة ترفيهية وإبداعية</h3>
+        <p>رسم، موسيقى، مسرح، رياضة، وطبخ. كل يوم مليء بالمتعة والاكتشاف لتنمية مهارات طفلك بشكل شامل.</p>
+      </div>
+ 
+      <div class="feature-card reveal" style="border-color:#d4f4e8; transition-delay:.2s">
+        <div class="feature-card" style="position:absolute;inset:0;border-radius:24px;border-top:4px solid var(--green);"></div>
+        <div class="feature-icon" style="background:var(--soft-green);">🥗</div>
+        <h3>وجبات صحية متوازنة</h3>
+        <p>قائمة طعام يومية بإشراف أخصائية تغذية، خالية من المواد الحافظة، مع مراعاة الحساسيات الغذائية.</p>
+      </div>
+ 
+      <div class="feature-card reveal" style="border-color:#fde8ea; transition-delay:.25s">
+        <div class="feature-card" style="position:absolute;inset:0;border-radius:24px;border-top:4px solid var(--red);"></div>
+        <div class="feature-icon" style="background:var(--soft-red);">👩‍⚕️</div>
+        <h3>رعاية صحية متكاملة</h3>
+        <p>ممرضة متخصصة حاضرة طوال اليوم، مع بروتوكول طبي واضح وتواصل فوري مع الأهل عند أي حالة.</p>
+      </div>
+ 
+      <div class="feature-card reveal" style="border-color:#e0eeff; transition-delay:.3s">
+        <div class="feature-card" style="position:absolute;inset:0;border-radius:24px;border-top:4px solid var(--blue);"></div>
+        <div class="feature-icon" style="background:var(--soft-blue);">📱</div>
+        <h3>تطبيق خاص بالأهل</h3>
+        <p>صور يومية، تقارير أسبوعية، وتواصل مباشر مع المعلمة. احضر مع طفلك عن بُعد حتى في أوقات عملك.</p>
+      </div>
+ 
+    </div>
+  </div>
+</section>
+ 
+<!-- ─── PROGRAMS ─── -->
+<section id="programs">
+  <div class="container">
+    <div style="text-align:center;" class="reveal">
+      <div class="section-tag" style="background:var(--soft-green); color:var(--green);">برامجنا التعليمية</div>
+      <h2 class="section-title">برنامج لكل مرحلة عمرية</h2>
+      <p class="section-sub" style="margin:auto; text-align:center;">
+        نصمّم كل برنامج ليناسب الاحتياجات التطورية الدقيقة لكل مرحلة،
+        ضماناً لنمو متوازن وسليم.
+      </p>
+    </div>
+    <div class="programs-grid" style="margin-top:50px;">
+ 
+      <div class="program-card reveal" style="background:linear-gradient(135deg, var(--red) 0%, #c0392b 100%);">
+        <div class="program-age">0-1</div>
+        <div class="program-badge">الفئة الأولى</div>
+        <h3>أشبال كولورز</h3>
+        <p>من شهر 3 إلى سنة كاملة. بيئة دافئة وآمنة تشبه البيت، مع رعاية فردية مكثّفة.</p>
+        <ul class="program-features">
+          <li>نسبة مربية لكل رضيع 1:2</li>
+          <li>تحفيز حسّي ومحادثة مستمرة</li>
+          <li>تقارير يومية مفصّلة</li>
+        </ul>
+      </div>
+ 
+      <div class="program-card reveal" style="background:linear-gradient(135deg, var(--blue) 0%, #0e4c8a 100%); transition-delay:.1s">
+        <div class="program-age">1-3</div>
+        <div class="program-badge">الفئة الثانية</div>
+        <h3>نجوم كولورز</h3>
+        <p>من سنة إلى 3 سنوات. برنامج يُنمّي اللغة والحركة والمهارات الاجتماعية باللعب الهادف.</p>
+        <ul class="program-features">
+          <li>تعلّم عبر الحواس الخمس</li>
+          <li>أنشطة موسيقية يومية</li>
+          <li>تدريب على الاستقلالية</li>
+        </ul>
+      </div>
+ 
+      <div class="program-card reveal" style="background:linear-gradient(135deg, var(--yellow) 0%, #d48000 100%); transition-delay:.2s">
+        <div class="program-age">3-5</div>
+        <div class="program-badge">الفئة الثالثة</div>
+        <h3>أبطال كولورز</h3>
+        <p>من 3 إلى 5 سنوات. تأهيل أكاديمي شامل باللغات الثلاث، استعداداً للمرحلة الابتدائية.</p>
+        <ul class="program-features">
+          <li>تعليم القراءة والكتابة</li>
+          <li>مفاهيم رياضية أساسية</li>
+          <li>مشاريع علمية بسيطة</li>
+        </ul>
+      </div>
+ 
+      <div class="program-card reveal" style="background:linear-gradient(135deg, var(--green) 0%, #1a8c5a 100%); transition-delay:.3s">
+        <div class="program-age">5+</div>
+        <div class="program-badge">الفئة الرابعة</div>
+        <h3>قادة كولورز</h3>
+        <p>من 5 إلى 6 سنوات. منهج تحضيري مكثّف يُعدّ الطفل للمدرسة بكل ثقة وجاهزية.</p>
+        <ul class="program-features">
+          <li>منهج Cambridge التحضيري</li>
+          <li>مهارات التفكير النقدي</li>
+          <li>قيادة وعمل جماعي</li>
+        </ul>
+      </div>
+ 
+    </div>
+  </div>
+</section>
+ 
+<!-- ─── TESTIMONIALS ─── -->
+<section style="background:#1a1a2e; padding:80px 24px;">
+  <div class="container">
+    <div style="text-align:center; margin-bottom:48px;" class="reveal">
+      <div class="section-tag" style="background:rgba(255,255,255,.1); color:#ddd;">آراء الأهالي</div>
+      <h2 class="section-title" style="color:#fff;">ماذا يقول أهالينا؟</h2>
+    </div>
+    <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:24px;">
+ 
+      <div class="reveal" style="background:rgba(255,255,255,.06); border-radius:22px; padding:28px; border:1px solid rgba(255,255,255,.1); transition-delay:.05s">
+        <div style="color:var(--yellow); font-size:1.1rem; margin-bottom:14px;">★★★★★</div>
+        <p style="color:#ccc; font-size:.9rem; line-height:1.8; margin-bottom:18px;">"حضانة رائعة! ابني تغيّر تماماً منذ انضمامه. أصبح أكثر ثقة وقدرة على التعبير عن نفسه. المعلمات متحمسات وحنونات جداً."</p>
+        <div style="display:flex; align-items:center; gap:12px;">
+          <div style="width:40px;height:40px;border-radius:50%;background:var(--red);display:flex;align-items:center;justify-content:center;font-weight:900;color:#fff;">س</div>
+          <div>
+            <div style="color:#fff; font-weight:700; font-size:.9rem;">سارة محمد</div>
+            <div style="color:#888; font-size:.78rem;">أم عمر، 4 سنوات</div>
+          </div>
+        </div>
+      </div>
+ 
+      <div class="reveal" style="background:rgba(255,255,255,.06); border-radius:22px; padding:28px; border:1px solid rgba(255,255,255,.1); transition-delay:.1s">
+        <div style="color:var(--yellow); font-size:1.1rem; margin-bottom:14px;">★★★★★</div>
+        <p style="color:#ccc; font-size:.9rem; line-height:1.8; margin-bottom:18px;">"التطبيق الخاص بالأهالي فكرة عبقرية! أتابع بنتي طوال اليوم، وأرى صور النشاطات. الشفافية الكاملة أعطتنا راحة بال لا تُقدَّر."</p>
+        <div style="display:flex; align-items:center; gap:12px;">
+          <div style="width:40px;height:40px;border-radius:50%;background:var(--blue);display:flex;align-items:center;justify-content:center;font-weight:900;color:#fff;">أ</div>
+          <div>
+            <div style="color:#fff; font-weight:700; font-size:.9rem;">أحمد الشريف</div>
+            <div style="color:#888; font-size:.78rem;">أب لينا، 3 سنوات</div>
+          </div>
+        </div>
+      </div>
+ 
+      <div class="reveal" style="background:rgba(255,255,255,.06); border-radius:22px; padding:28px; border:1px solid rgba(255,255,255,.1); transition-delay:.15s">
+        <div style="color:var(--yellow); font-size:1.1rem; margin-bottom:14px;">★★★★★</div>
+        <p style="color:#ccc; font-size:.9rem; line-height:1.8; margin-bottom:18px;">"ابنتي دخلت وهي لا تتكلم إنجليزي، والآن بعد 6 أشهر تُغني وتقرأ كلمات! المنهج ممتاز والاهتمام الفردي واضح جداً."</p>
+        <div style="display:flex; align-items:center; gap:12px;">
+          <div style="width:40px;height:40px;border-radius:50%;background:var(--green);display:flex;align-items:center;justify-content:center;font-weight:900;color:#fff;">ن</div>
+          <div>
+            <div style="color:#fff; font-weight:700; font-size:.9rem;">نورا العمري</div>
+            <div style="color:#888; font-size:.78rem;">أم يارا، 5 سنوات</div>
+          </div>
+        </div>
+      </div>
+ 
+    </div>
+  </div>
+</section>
+ 
+<!-- ─── CONTACT ─── -->
+<section id="contact">
+  <div class="container">
+    <div style="text-align:center;" class="reveal">
+      <div class="section-tag" style="background:var(--soft-red); color:var(--red);">تواصل معنا</div>
+      <h2 class="section-title">ابدأ رحلة طفلك معنا اليوم</h2>
+      <p class="section-sub" style="margin:auto; text-align:center;">
+        سجّل الآن وسيتواصل معك فريقنا خلال 24 ساعة لترتيب زيارة مجانية للحضانة.
+      </p>
+    </div>
+ 
+    <div class="contact-grid">
+ 
+      <div class="reveal">
+        <div class="contact-info-item">
+          <div class="contact-icon-wrap" style="background:var(--soft-red);">📍</div>
+          <div>
+            <h4>العنوان</h4>
+            <p>طريق 11، الحوامدية، الجيزة</p>
+          </div>
+        </div>
+        <div class="contact-info-item">
+          <div class="contact-icon-wrap" style="background:var(--soft-green);">📞</div>
+          <div>
+            <h4>الهاتف</h4>
+            <p>01127606069<br><a href="https://wa.me/201127606069" style="color:var(--green); text-decoration:none; font-weight:600;">01127606069 (واتساب) 💬</a></p>
+          </div>
+        </div>
+        <div class="contact-info-item">
+          <div class="contact-icon-wrap" style="background:var(--soft-blue);">📧</div>
+          <div>
+            <h4>البريد الإلكتروني</h4>
+            <p><a href="mailto:esraaibrahim900@gmail.com" style="color:var(--blue); text-decoration:none;">esraaibrahim900@gmail.com</a></p>
+          </div>
+        </div>
+        <div class="contact-info-item">
+          <div class="contact-icon-wrap" style="background:var(--soft-yellow);">🕐</div>
+          <div>
+            <h4>أوقات العمل</h4>
+            <p>الأحد – الخميس: 7:30 ص – 5:00 م<br>الجمعة والسبت: إجازة</p>
+          </div>
+        </div>
+ 
+        <div style="border-radius:20px; overflow:hidden; height:220px; margin-top:24px; box-shadow:0 8px 30px rgba(0,0,0,.1);">
+          <iframe
+            src="https://maps.google.com/maps?q=الحوامدية،+الجيزة،+مصر&t=&z=15&ie=UTF8&iwloc=&output=embed"
+            width="100%" height="220" style="border:0; display:block;"
+            allowfullscreen="" loading="lazy"
+            title="موقع حضانة كولورز - الحوامدية الجيزة">
+          </iframe>
+        </div>
+      </div>
+ 
+      <div class="reveal" style="transition-delay:.15s">
+        <div class="contact-form">
+          <h3 style="font-size:1.25rem; font-weight:800; margin-bottom:24px;">سجّل بياناتك الآن</h3>
+          <div class="form-group">
+            <label>اسم ولي الأمر *</label>
+            <input type="text" placeholder="مثال: محمد أحمد">
+          </div>
+          <div class="form-group">
+            <label>رقم الهاتف *</label>
+            <input type="tel" placeholder="01X XXXX XXXX">
+          </div>
+          <div class="form-group">
+            <label>اسم الطفل</label>
+            <input type="text" placeholder="مثال: يوسف">
+          </div>
+          <div class="form-group">
+            <label>عمر الطفل</label>
+            <select>
+              <option value="">اختر الفئة العمرية</option>
+              <option>3 أشهر – سنة (أشبال كولورز)</option>
+              <option>1 – 3 سنوات (نجوم كولورز)</option>
+              <option>3 – 5 سنوات (أبطال كولورز)</option>
+              <option>5 – 6 سنوات (قادة كولورز)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>رسالتك أو استفساراتك</label>
+            <textarea placeholder="هل لديك أي أسئلة أو طلبات خاصة؟ نحن هنا للمساعدة..."></textarea>
+          </div>
+          <button class="btn-submit" onclick="handleSubmit(this)">
+            🚀 أرسل التسجيل الآن
+          </button>
+          <p style="text-align:center; font-size:.78rem; color:#999; margin-top:14px;">
+            ✅ سيتم التواصل معك خلال 24 ساعة — زيارة الحضانة مجانية
+          </p>
+        </div>
+      </div>
+ 
+    </div>
+  </div>
+</section>
+ 
+<!-- ─── FOOTER ─── -->
+<footer>
+  <div class="footer-logo">
+    <div class="logo-circles" style="justify-content:center; margin-bottom:10px;">
+      <span style="background:var(--red)"></span>
+      <span style="background:var(--blue)"></span>
+      <span style="background:var(--yellow)"></span>
+      <span style="background:var(--green)"></span>
+    </div>
+    <div style="font-size:1.1rem; font-weight:900; color:#fff;">Colors International Nursery</div>
+    <div style="font-size:.8rem; color:#666; margin-top:4px;">حيث يبدأ المستقبل المشرق</div>
+  </div>
+  <div class="footer-links">
+    <a href="#hero">الرئيسية</a>
+    <a href="#about">عن الحضانة</a>
+    <a href="#features">مميزاتنا</a>
+    <a href="#programs">برامجنا</a>
+    <a href="#contact">تواصل معنا</a>
+  </div>
+  <div style="display:flex; gap:14px; justify-content:center; margin-bottom:24px;">
+    <a href="#" style="width:38px;height:38px;background:rgba(255,255,255,.08);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#aaa;text-decoration:none;font-size:1rem;transition:.2s;" onmouseover="this.style.background='var(--blue)';this.style.color='#fff'" onmouseout="this.style.background='rgba(255,255,255,.08)';this.style.color='#aaa'">f</a>
+    <a href="#" style="width:38px;height:38px;background:rgba(255,255,255,.08);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#aaa;text-decoration:none;font-size:.9rem;transition:.2s;" onmouseover="this.style.background='var(--red)';this.style.color='#fff'" onmouseout="this.style.background='rgba(255,255,255,.08)';this.style.color='#aaa'">in</a>
+    <a href="#" style="width:38px;height:38px;background:rgba(255,255,255,.08);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#aaa;text-decoration:none;font-size:.9rem;transition:.2s;" onmouseover="this.style.background='var(--green)';this.style.color='#fff'" onmouseout="this.style.background='rgba(255,255,255,.08)';this.style.color='#aaa'">wa</a>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 Colors International Nursery. جميع الحقوق محفوظة.</p>
+  </div>
+</footer>
+ 
+<!-- ─── SCRIPTS ─── -->
+<script>
+  // Navbar scroll effect
+  window.addEventListener('scroll', () => {
+    document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 30);
+  });
+ 
+  // Mobile menu
+  function toggleMenu() {
+    document.getElementById('mobileMenu').classList.toggle('open');
+  }
+ 
+  // Scroll reveal
+  const revealEls = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+  }, { threshold: 0.12 });
+  revealEls.forEach(el => observer.observe(el));
+ 
+  // Smooth scroll for nav links
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+ 
+  // Form submit
+  function handleSubmit(btn) {
+    btn.textContent = '✅ تم الإرسال! سنتواصل معك قريباً';
+    btn.style.background = 'var(--green)';
+    btn.disabled = true;
+    setTimeout(() => {
+      btn.textContent = '🚀 أرسل التسجيل الآن';
+      btn.style.background = 'var(--red)';
+      btn.disabled = false;
+    }, 4000);
+  }
+</script>
+ 
+</body>
+</html>
